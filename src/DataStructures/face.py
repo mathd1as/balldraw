@@ -1,7 +1,3 @@
 class Face:
-  def __init__(self, canvas, edges, color):
-    self.canvas = canvas
+  def __init__(self, edges):
     self.edges = edges
-  
-  # def riscarFace():
-  #   self.canvas

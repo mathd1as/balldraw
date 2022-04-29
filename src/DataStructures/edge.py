@@ -3,5 +3,5 @@ class Edge:
     self.startVertex = startVertex
     self.endVertex = endVertex
 
-  def calculateM():
-    self.m = ( endVertex.y - startVertex.y) / (endVertex.x - startVertex.x)
+  def calculateM(self):
+    self.m = ( self.endVertex.y - self.startVertex.y) / (self.endVertex.x - self.startVertex.x)
