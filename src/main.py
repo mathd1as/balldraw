@@ -1,22 +1,26 @@
 from tkinter import *
 from DataStructures.vertex import Vertex
-from DataStructures.edge import Edge
+# from DataStructures.edge import Edge
+from DataStructures.sphere import Sphere
+from BaseOperations.baseOperations import BaseOperation
 
 
 window = Tk()
 window.title('Computação gráfica: modelagem de cenas');
 
-canvas = Canvas(window, width=200, height=200)
+canvas = Canvas(window, width=800, height=600)
 canvas.pack()
 
-vertexA = Vertex(1, 1, 1)
-vertexB = Vertex(100, 100, 10)
+sphere = Sphere(100, 8, 7, canvas)
 
-# edge = Edge(canvas, vertexA, vertexB)
+# print(sphere.Vertexes)
 
-# canvas.create_rectangle(25, 25, 130, 60)
-canvas.create_line(vertexA.x, vertexA.y, vertexB.x, vertexB.y)
+for vertex in sphere.Vertexes:
+    BaseOperation.translation(vertex, Vertex(400, 300, 0))
 
+for edge in sphere.Edges:
+  canvas.create_line(edge.startVertex.coordinates(), edge.endVertex.coordinates())
+  print(edge.startVertex.coordinates(), edge.endVertex.coordinates())
 
 window.mainloop()
 
