@@ -9,7 +9,7 @@ class GeometricTransformation:
         sen = math.sin(math.radians(angle))
         cos = math.cos(math.radians(angle))
         
-        if axel=="x" :
+        if axel == "x" :
             vertex.y,vertex.z=(vertex.z*sen)+(vertex.y*cos) ,(vertex.z*cos)-(vertex.y*sen)
 
         if axel == "y":
