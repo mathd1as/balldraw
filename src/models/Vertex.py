@@ -3,3 +3,7 @@ class Vertex:
     self.x = x
     self.y = y 
     self.z = z
+  
+  def coordinates(self):
+    return self.x,self.y
+  

@@ -1,8 +1,7 @@
 from tkinter import *
-from DataStructures.vertex import Vertex
-# from DataStructures.edge import Edge
-from DataStructures.sphere import Sphere
-from BaseOperations.baseOperations import BaseOperation
+from models.Vertex import Vertex
+from models.Sphere import Sphere
+from models.GeometricTransformation import GeometricTransformation
 
 
 window = Tk()
@@ -16,7 +15,7 @@ sphere = Sphere(100, 8, 7, canvas)
 # print(sphere.Vertexes)
 
 for vertex in sphere.Vertexes:
-    BaseOperation.translation(vertex, Vertex(400, 300, 0))
+    GeometricTransformation.translation(vertex, Vertex(400, 300, 0))
 
 for edge in sphere.Edges:
   canvas.create_line(edge.startVertex.coordinates(), edge.endVertex.coordinates())
