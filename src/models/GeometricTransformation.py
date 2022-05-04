@@ -1,11 +1,12 @@
 import math
 from re import X
 from tokenize import Double, String
+
 from .Vertex import Vertex
 
 class GeometricTransformation:
     @staticmethod
-    def rotation(vertex: Vertex, angle: int, axel: String):
+    def rotation(vertex: Vertex, angle: float, axel: String):
         sen = math.sin(math.radians(angle))
         cos = math.cos(math.radians(angle))
         

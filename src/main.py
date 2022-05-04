@@ -12,12 +12,15 @@ canvas.pack()
 
 sphere = Sphere(100, 8, 7)
 
+# for vertex in sphere.vertexes:
+#     GeometricTransformation.rotation(vertex,90,"x")
+
 for vertex in sphere.vertexes:
     GeometricTransformation.translation(vertex, Vertex(400, 300, 1))
 
 for edge in sphere.edges:
   canvas.create_line(edge.startVertex.coordinates(), edge.endVertex.coordinates())
-  print(edge.startVertex.coordinates(), edge.endVertex.coordinates())
+  # print(edge.startVertex.coordinates(), edge.endVertex.coordinates())
 
 window.mainloop()
 
