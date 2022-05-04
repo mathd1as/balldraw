@@ -23,9 +23,9 @@ class GeometricTransformation:
     @staticmethod
     def translation(vertex: Vertex, dest: Vertex):
         vertex.x,vertex.y,vertex.z = dest.x - vertex.x, dest.y - vertex.y, dest.z - vertex.z    
-        return vertex
+        return Vertex(vertex.x, vertex.y, vertex.z)
 
     @staticmethod
     def scale(vertex: Vertex, size: Double):
         vertex.x,vertex.y,vertex.z = vertex.x*size, vertex.y*size, vertex.z*size
-        return vertex
+        return Vertex(vertex.x, vertex.y, vertex.z)
