@@ -8,9 +8,9 @@ class Sphere:
     self.meridians = meridians
     self.parallels = parallels
     self.radius = radius
+    self.faces = []
     self.edges = []
     self.vertexes = []
-    self.faces = []
 
     self.shapeSphere()
 
@@ -19,20 +19,17 @@ class Sphere:
     self.parallelAngle = 180 / (self.parallels + 1)
     radiusVertex = Vertex(0, self.radius, 0)
 
-    meridian = self.createMeridian(radiusVertex)
-    meridiansArray = []
+    meridianVertexes = self.createMeridian(radiusVertex)
+    meridiansList = []
     
-    # meridiansArray.append(meridian)
     for i in range(self.meridians):
-      meridiansArray.append(self.rotationMeridiansVertexes(meridian))
+      meridiansList.append(self.rotateMeridianVertexes(meridianVertexes))
 
-    # for meridian in meridiansArray:
-    #   for i in range(self.parallels-1):
-    #     self.edges.append(Edge(meridian[i],meridian[i+1]))
-    self.createTopFaces(Vertex(0, self.radius, 0),meridiansArray)
-    self.createSquareFaces(meridiansArray)
-    self.createBottonFaces(Vertex(0,-self.radius,0),meridiansArray)
-    for meridian in meridiansArray:
+    self.createTopFaces(Vertex(0, self.radius, 0), meridiansList)
+    self.createSquareFaces(meridiansList)
+    self.createBottonFaces(Vertex(0,-self.radius,0), meridiansList)
+    
+    for meridian in meridiansList:
       self.vertexes.extend(meridian)
 
   def createMeridian(self, radiusVertex):
@@ -44,13 +41,13 @@ class Sphere:
 
     return vertexesArray
   
-  def rotationMeridiansVertexes(self, vetexesArray):
+  def rotateMeridianVertexes(self, vetexesArray):
     rotatedMeridiansVertexes = []
 
     for vertex in vetexesArray:
       rotationVertex = GeometricTransformation.rotation(vertex, self.meridianAngle, 'y')
       rotatedMeridiansVertexes.append(rotationVertex)
-      # self.vertexes.append(rotationVertex)
+      
     return rotatedMeridiansVertexes
 
   # recives a vertex matriz, each line is a meridian
