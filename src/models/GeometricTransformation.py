@@ -30,17 +30,6 @@ class GeometricTransformation:
     def scale(vertex: Vertex, size: Double):
         vertex.x,vertex.y,vertex.z = vertex.x*size, vertex.y*size, vertex.z*size
         return Vertex(vertex.x, vertex.y, vertex.z)
-    
-    @staticmethod
-    def translationMatrix(VRP):
-        traslationVRP = ([
-            [1.0, 0.0, 0.0, - (VRP.x)],
-            [0.0, 1.0, 0.0, - (VRP.y)],
-            [0.0, 0.0, 1.0, - (VRP.z)],
-            [0.0, 0.0, 0.0, 1.0],
-        ]).astype(float)
-    
-        return traslationVRP
 
     @staticmethod
     def calculateNormalVector(VRP,focalPoint):    
@@ -75,3 +64,55 @@ class GeometricTransformation:
             scalarVector.y / scalarModule,
             scalarVector.z / scalarModule
         )
+
+    @staticmethod
+    def crossProduct(a: Vertex, b:Vertex):
+        return Vertex(
+            (a.y*b.z)-(a.z*b.y),
+            (a.z*b.x)-(a.x*b.z),
+            (a.x*b.y)-(a.y*b.x)
+        )
+    
+    @staticmethod
+    def dotProduct(a: Vertex, b: Vertex):
+        return (a.x*b.x)+(a.y*b.y)+(a.z*b.z)
+    
+    @staticmethod
+    def calculateVrpTranslation(vrp: Vertex):
+        return Vertex(-vrp.x, -vrp.y, -vrp.z)
+
+    @staticmethod
+    def calculateSRCVertexes( vertexes, VRP, focalPoint, viewUp):
+        n = GeometricTransformation.calculateNormalVector(VRP, focalPoint)
+        v = GeometricTransformation.calculateViewUpVector(n, viewUp)
+        u = GeometricTransformation.crossProduct(v,n)
+        vrpT = GeometricTransformation.calculateVrpTranslation(VRP)
+
+        print("N^=",n.coordinatesXYZ())
+        print("Y^=",v.coordinatesXYZ())
+        print("U^=",u.coordinatesXYZ())
+        vrpDotU = GeometricTransformation.dotProduct(vrpT,u)
+        vrpDotv = GeometricTransformation.dotProduct(vrpT,v)
+        vrpDotn = GeometricTransformation.dotProduct(vrpT,n)
+
+        for vertex in vertexes:
+            vertex.x,vertex.y,vertex.z = [    
+                (u.x*vertex.x)+(u.y*vertex.y)+(u.z*vertex.z)+(vrpDotU),
+                (v.x*vertex.x)+(v.y*vertex.y)+(v.z*vertex.z)+(vrpDotv),
+                (n.x*vertex.x)+(n.y*vertex.y)+(n.z*vertex.z)+(vrpDotn)
+            ]
+
+    @staticmethod
+    def calculateSRTVertexes(vertexes, vertexMinWindow, vertexMaxWindow, vertexMinView, vertexMaxView, dp):
+        deltaView = Vertex(vertexMaxView.x - vertexMinView.x, vertexMaxView.y - vertexMinView.y, 1)
+        deltaWindow = Vertex(vertexMaxWindow.x - vertexMinWindow.x, vertexMinWindow.y - vertexMaxWindow.y, 1)
+        u1 = (-vertexMinWindow.x * (deltaView.x/deltaWindow.x))+vertexMinView.x
+        u2 = vertexMinWindow.y *(deltaView.y/deltaWindow.y)+vertexMaxView.y
+        x = deltaView.x/deltaWindow.x
+        y = deltaView.y/deltaWindow.y
+        print("----------",x,y,u1,u2)
+        for v in vertexes:
+            v.x = ((v.x*x)+(u1*v.x))/-(1/dp)
+            v.y = (((vertexMinView.y-vertexMaxView.y)/y)+(u2*y))/-(1/dp)
+            v.z = v.z/-(1/dp)
+
