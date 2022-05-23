@@ -105,14 +105,14 @@ class GeometricTransformation:
     @staticmethod
     def calculateSRTVertexes(vertexes, vertexMinWindow, vertexMaxWindow, vertexMinView, vertexMaxView, dp):
         deltaView = Vertex(vertexMaxView.x - vertexMinView.x, vertexMaxView.y - vertexMinView.y, 1)
-        deltaWindow = Vertex(vertexMaxWindow.x - vertexMinWindow.x, vertexMinWindow.y - vertexMaxWindow.y, 1)
+        deltaWindow = Vertex(vertexMaxWindow.x - vertexMinWindow.x, vertexMaxWindow.y - vertexMinWindow.y, 1)
         u1 = (-vertexMinWindow.x * (deltaView.x/deltaWindow.x))+vertexMinView.x
         u2 = vertexMinWindow.y *(deltaView.y/deltaWindow.y)+vertexMaxView.y
         x = deltaView.x/deltaWindow.x
-        y = deltaView.y/deltaWindow.y
+        y = (vertexMinView.y-vertexMaxView.y)/deltaWindow.y
         print("----------",x,y,u1,u2)
         for v in vertexes:
-            v.x = ((v.x*x)+(u1*v.x))/-(1/dp)
-            v.y = (((vertexMinView.y-vertexMaxView.y)/y)+(u2*y))/-(1/dp)
-            v.z = v.z/-(1/dp)
+            v.x = ((v.x*(1/dp)*x)+u1)
+            v.y = ((v.y*(1/dp)*y)+u2)
+            v.z = v.z*(1/dp)
 

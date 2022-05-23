@@ -16,12 +16,12 @@ sphere = Sphere(100, 3, 1)
   # print(vertex.coordinatesXYZ())
   # gt.translation(vertex, Vertex(400, 300, 1))
 
-VRP = Vertex(0, 0, 400)
+VRP = Vertex(0, 0, 1)
 focalPoint = Vertex(0, 0, 0)
 viewUp = Vertex(0, 1, 0)
 
 gt.calculateSRCVertexes(sphere.vertexes, VRP, focalPoint, viewUp)
-gt.calculateSRTVertexes(sphere.vertexes, Vertex(-400, -300, 1), Vertex(400, 300, 1), Vertex(0, 0, 1), Vertex(800, 600, 1), 400)
+gt.calculateSRTVertexes(sphere.vertexes, Vertex(-400, -300, 1), Vertex(400, 300, 1), Vertex(0, 0, 1), Vertex(800, 600, 1), 1)
 
 
 for edge in sphere.edges:
