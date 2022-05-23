@@ -10,7 +10,7 @@ window.title('Computação gráfica: modelagem de cenas')
 canvas = Canvas(window, width = 800, height = 600)
 canvas.pack()
 
-sphere = Sphere(100, 3, 1)
+sphere = Sphere(100, 4, 2)
 
 # for vertex in sphere.vertexes:
   # print(vertex.coordinatesXYZ())
@@ -19,9 +19,9 @@ sphere = Sphere(100, 3, 1)
 VRP = Vertex(0, 0, 1)
 focalPoint = Vertex(0, 0, 0)
 viewUp = Vertex(0, 1, 0)
-
+dp = gt.distanceTwoVertexes(VRP,focalPoint)
 gt.calculateSRCVertexes(sphere.vertexes, VRP, focalPoint, viewUp)
-gt.calculateSRTVertexes(sphere.vertexes, Vertex(-400, -300, 1), Vertex(400, 300, 1), Vertex(0, 0, 1), Vertex(800, 600, 1), 1)
+gt.calculateSRTVertexes(sphere.vertexes, Vertex(-400, -300, 1), Vertex(400, 300, 1), Vertex(0, 0, 1), Vertex(800, 600, 1), dp)
 
 
 for edge in sphere.edges:

@@ -72,6 +72,10 @@ class GeometricTransformation:
             (a.z*b.x)-(a.x*b.z),
             (a.x*b.y)-(a.y*b.x)
         )
+
+    @staticmethod
+    def distanceTwoVertexes(a: Vertex, b: Vertex):
+        return math.sqrt(math.pow(a.x-b.x,2)+math.pow(a.y-b.y,2)+math.pow(a.z-b.z,2))
     
     @staticmethod
     def dotProduct(a: Vertex, b: Vertex):
@@ -112,7 +116,7 @@ class GeometricTransformation:
         y = (vertexMinView.y-vertexMaxView.y)/deltaWindow.y
         print("----------",x,y,u1,u2)
         for v in vertexes:
-            v.x = ((v.x*(1/dp)*x)+u1)
-            v.y = ((v.y*(1/dp)*y)+u2)
-            v.z = v.z*(1/dp)
+            v.x = ((v.x/dp)*x)+u1
+            v.y = ((v.y/dp)*y)+u2
+            v.z = (v.z/dp)
 
