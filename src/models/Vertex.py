@@ -4,6 +4,9 @@ class Vertex:
     self.y = y 
     self.z = z
   
-  def coordinates(self):
+  def coordinatesXY(self):
     return self.x,self.y
+
+  def coordinatesXYZ(self):
+    return self.x,self.y, self.z
   
